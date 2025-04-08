@@ -43,8 +43,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: Jacoco coverage results
-        path: C:\Users\dlw91\OneDrive\Documents\CS1632\exercise_2\exercise-2-unit-testing-dantewarhola\src
-
+        path: target/site/jacoco
   # Uploads dependency graph to GitHub to receive Dependabot alerts 
   update_dependence_graph:
 
