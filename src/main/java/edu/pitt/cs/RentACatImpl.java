@@ -18,10 +18,28 @@ public class RentACatImpl implements RentACat {
 	 */
 
 	public boolean returnCat(int id) {
-		// TODO: Fill in
-		return false;
+		Cat c = getCat(id);
+
+
+
+		if (c == null){
+			return false;
+		}
+
+
+		if (!c.getRented()){
+			System.out.println(c.getName() + " is already here!");
+			return false;
+		}
+
+		c.returnCat();
+		System.out.println("Welcome back, " + c.getName() + "!");
+		return true;
 	}
 
+
+
+	
 	/**
 	 * Rent a cat. This should call the .rentCat() method on the cat for the
 	 * passed-in cat id. If the cat with the id exists in the list of cats and has
@@ -33,8 +51,21 @@ public class RentACatImpl implements RentACat {
 	 */
 
 	public boolean rentCat(int id) {
-		// TODO: Fill in
-		return false;
+		Cat c = getCat(id);
+
+		if (c == null){
+			System.out.println("Invalid cat ID.");
+			return false;
+		}
+
+		if (c.getRented()){
+			System.out.println("Sorry, " + c.getName() + " is not here!");
+			return false;
+		}
+
+		c.rentCat();
+		System.out.println(c.getName() + " has been rented.");
+		return true;
 	}
 
 	/**
@@ -47,7 +78,13 @@ public class RentACatImpl implements RentACat {
 	 */
 
 	public boolean renameCat(int id, String name) {
-		// TODO: Fill in
+		for (int i = 0; i < cats.size(); i++){
+			if (cats.get(i).getId() == id){
+				cats.get(i).renameCat(name);
+				return true;
+			} 
+		}
+		System.out.println("Invalid cat ID.");
 		return false;
 	}
 
@@ -62,8 +99,15 @@ public class RentACatImpl implements RentACat {
 	 */
 
 	public String listCats() {
-		// TODO: Fill in
-		return "WRITE CODE FOR THIS";
+		StringBuilder rentableCats= new StringBuilder();
+		System.out.println("DEBUG: Listing available cats...");
+
+		for (Cat c : cats){
+			if(!c.getRented()){
+				rentableCats.append("ID ").append(c.getId()).append(". ").append(c.getName()).append("\n");
+			}
+		}
+		return rentableCats.toString();
 	}
 
 	/**
